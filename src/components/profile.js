@@ -1,65 +1,37 @@
-import 'antd/dist/antd.css';
-import React from 'react';
-import{ Component } from 'react';
-import { Button, Modal } from 'antd';
-import './style_profile.css';
+import React, { useState, useEffect} from 'react';
+import "./profile.css"
 
-class ProfilePicChanger extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            visible: false,
-            imagesArray: [props.pic1, props.pic2]
-        }
-    }
-    state = {visible: false};
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    }
-    handleOk = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    }
-    handleCancel = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    }
-  render(){
-    const imageMapper = this.state.imagesArray.map((image, index) => {
-        return (
-            <img src={image} 
-                onClick={() => this.props.handleImageChange(image)}
-                height = "48px"
-            />
-        )
-    })
-    return (
-      <div className='ProfilePicChanger'>
-        <Button type="primary" onClick={this.showModal}>
-        Profile
-      </Button>
-      <Modal
-        title="Personal Record"
-        visible={this.state.visible}
-        onOk={this.handleOk}
-        onCancel={this.handleCancel}
-      >
-        <p>Username: </p>
-        <p>Name: </p>
-        <p>Age: </p>
-        <p>Weight: </p>
-        <p>Height: </p>
-        {imageMapper}
-      </Modal> {" "}
-      </div>
-    )
+export default function App() {
+  const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
+
+  useEffect(() => {
+    if (images.length < 1) return;
+    const newImageUrls = [];
+    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImageURLs(newImageUrls);
+  }, [images]);
+
+  function onImageChange(e) {
+    setImages([...e.target.files]);
   }
-}
 
-export default ProfilePicChanger;
+  console.log("Images : ", images);
+  console.log("imageURLs : ", imageURLs);
+
+  return (
+    <div className="profile">
+      <div className='bc_img'>{imageURLs.map((imageSrc, idx) => (
+        <img key={idx} width="500" height="400" src={imageSrc} className="profile_img" 
+        style={{
+          width: "200px",
+          height: "200px",
+          borderRadius: "50%",
+          objectFit : "cover",
+          border: "4px solid white",
+        }}/>
+      ))}</div>
+    <input type="file" multiple accept="image/*" onChange={onImageChange} className="choose"/>
+    </div>
+  );
+};
