@@ -1,6 +1,12 @@
 
 .container {
-    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.5rem;
+    color: #7b7aaf;
+    font-weight: bold;
+    margin-left: 1cm;
+    margin-top: 0.5cm;
   }
   .toggle-switch {
     position: relative;
@@ -8,6 +14,8 @@
     display: inline-block;
     text-align: left;
     top: 8px;
+    margin-left: 0.5cm;
+    margin-top: -0.1cm;
   }
   .checkbox {
     display: none;
@@ -52,6 +60,7 @@
   .switch {
     display: block;
     width: 24px;
+    height: 24px;
     margin: 5px;
     background: #fff;
     position: absolute;

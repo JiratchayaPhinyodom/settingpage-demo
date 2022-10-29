@@ -22,14 +22,7 @@ export default function App() {
   return (
     <div className="profile">
       <div className='bc_img'>{imageURLs.map((imageSrc, idx) => (
-        <img key={idx} width="500" height="400" src={imageSrc} className="profile_img" 
-        style={{
-          width: "200px",
-          height: "200px",
-          borderRadius: "50%",
-          objectFit : "cover",
-          border: "4px solid white",
-        }}/>
+        <img key={idx} width="500" height="400" src={imageSrc} className="profile_img" />
       ))}</div>
     <input type="file" multiple accept="image/*" onChange={onImageChange} className="choose"/>
     </div>
